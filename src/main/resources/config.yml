@@ -1,0 +1,18 @@
+#MySQL配置
+storage:
+  #账户名(建议不使用root账号)
+  username: bilibilireward
+  #密码
+  password: passwd
+  #MySQL地址
+  host: localhost
+  #MySQL端口
+  port: 3306
+  #数据库名称
+  database: "bilibilireward"
+  #不建议修改此数值 保持默认即可
+  table: "bilibilireward"
+  #MySQL启用SSL加密传输时需要开启 否则请禁用
+  useSSL: false
+#储存方式 mysql / yaml
+database: "yaml"

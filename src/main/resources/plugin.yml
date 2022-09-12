@@ -1,0 +1,6 @@
+name: BilibiliReward
+version: '${version}'
+main: flyproject.bili.BilibiliReward
+api-version: 1.13
+authors: [ FastMCMirrorOrganization ]
+description: Bilibili Like / Coin / Folder / Follower Checker
