@@ -4,3 +4,11 @@ main: flyproject.bili.BilibiliReward
 api-version: 1.13
 authors: [ FastMCMirrorOrganization ]
 description: Bilibili Like / Coin / Folder / Follower Checker
+commands:
+  breward:
+    permission: breward.use
+    description: Main Command
+permissions:
+  breward.use:
+    default: true
+    description: Main Permission

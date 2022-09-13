@@ -109,7 +109,7 @@ public class MySQL {
              PreparedStatement stmt = con.prepareStatement(sql, RETURN_GENERATED_KEYS)) {
             stmt.setString(1, uuid);
             stmt.setString(2, data);
-            stmt.setString(3,data);
+            stmt.setString(3, data);
             stmt.executeUpdate();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
@@ -129,18 +129,18 @@ public class MySQL {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
 
-    public static Map<UUID,String> getAll() {
+    public static Map<UUID, String> getAll() {
         String sql = "SELECT * FROM `%s`.`%s`;";
         sql = String.format(sql, DATABASE, TABLE);
-        Map<UUID,String> map = new HashMap<>();
+        Map<UUID, String> map = new HashMap<>();
         try (Connection con = dataSource.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
-                    map.put(UUID.fromString(resultSet.getString("uuid")),resultSet.getString("data"));
+                    map.put(UUID.fromString(resultSet.getString("uuid")), resultSet.getString("data"));
                 }
             }
         } catch (SQLException e) {

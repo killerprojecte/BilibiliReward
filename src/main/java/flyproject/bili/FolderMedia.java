@@ -16,7 +16,7 @@ public class FolderMedia {
     @SerializedName("upper")
     private JsonObject upper;
 
-    public BiliUser getUpper(){
-        return new Gson().fromJson(upper,BiliUser.class);
+    public BiliUser getUpper() {
+        return new Gson().fromJson(upper, BiliUser.class);
     }
 }

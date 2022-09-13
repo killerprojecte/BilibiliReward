@@ -19,12 +19,12 @@ public class CoinInfo {
     public String pic;
     @SerializedName("title")
     public String title;
-    @SerializedName("owner")
-    private JsonObject owner;
     @SerializedName("coins")
     public long coins;
+    @SerializedName("owner")
+    private JsonObject owner;
 
     public BiliUser getOwner() {
-        return new Gson().fromJson(owner,BiliUser.class);
+        return new Gson().fromJson(owner, BiliUser.class);
     }
 }

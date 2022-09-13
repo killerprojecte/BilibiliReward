@@ -14,5 +14,29 @@ storage:
   table: "bilibilireward"
   #MySQL启用SSL加密传输时需要开启 否则请禁用
   useSSL: false
-#储存方式 mysql / yaml
+#储存方式 mysql / yaml (切换储存方式需要重启服务器生效)
 database: "yaml"
+#是否绑定该用户的所有视频
+bind_user: true
+#UID (绑定用户为用户ID,视频为视频ID)
+bind: 123456
+#检查状态时间 (单位: 分钟)
+check: 10
+#命令头部
+header: "&b&lBilibili三连奖励领取系统"
+#点赞奖励
+like:
+  - "tellraw %player% [\"您给视频 %title% 点了一个赞\"]"
+  - "give %player% diamond 1"
+#投币奖励
+coin:
+  - "tellraw %player% [\"您给视频 %title% 投了%coin%个币\"]"
+  - "give %player% diamond 1"
+#收藏奖励
+folder:
+  - "tellraw %player% [\"您收藏了视频 %title%\"]"
+  - "give %player% diamond 1"
+#关注奖励
+following:
+  - "tellraw %player% [\"您关注了UP主\"]"
+  - "give %player% diamond 1"

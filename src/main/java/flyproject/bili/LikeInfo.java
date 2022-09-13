@@ -23,6 +23,6 @@ public class LikeInfo {
     private JsonObject owner;
 
     public BiliUser getOwner() {
-        return new Gson().fromJson(owner,BiliUser.class);
+        return new Gson().fromJson(owner, BiliUser.class);
     }
 }
