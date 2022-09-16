@@ -18,12 +18,17 @@ storage:
 database: "yaml"
 #是否绑定该用户的所有视频
 bind_user: true
-#UID (绑定用户为用户ID,视频为视频ID)
-bind: 123456
+#UID (仅绑定用户和关注奖励可用)
+uid: 012345
+#视频AID
+bind:
+  - 0123456
 #检查状态时间 (单位: 分钟)
 check: 10
 #命令头部
 header: "&b&lBilibili三连奖励领取系统"
+#是否按投币数量执行命令
+with_amount: true
 #点赞奖励
 like:
   - "tellraw %player% [\"您给视频 %title% 点了一个赞\"]"

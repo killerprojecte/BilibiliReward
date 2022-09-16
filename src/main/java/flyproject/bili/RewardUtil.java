@@ -31,7 +31,8 @@ public class RewardUtil {
             }
             List<Following> followings = RequestUtil.get20Following(uid);
             boolean bind_user = configuration.getBoolean("bind_user");
-            long bind_id = configuration.getLong("bind");
+            long bind_id = configuration.getLong("uid");
+            List<Long> videos = configuration.getLongList("bind");
             //Like
             for (LikeInfo likeInfo : likeInfos) {
                 if (bind_user) {
@@ -39,7 +40,7 @@ public class RewardUtil {
                     if (DataUtil.hasLikeVideo(String.valueOf(likeInfo.aid), jsonObject)) continue;
                     cmd(configuration.getStringList("like"), Bukkit.getOfflinePlayer(uuid).getName(), likeInfo.title);
                 } else {
-                    if (likeInfo.aid != bind_id) continue;
+                    if (!videos.contains(likeInfo.aid)) continue;
                     if (DataUtil.hasLikeVideo(String.valueOf(likeInfo.aid), jsonObject)) continue;
                     cmd(configuration.getStringList("like"), Bukkit.getOfflinePlayer(uuid).getName(), likeInfo.title);
                 }
@@ -47,14 +48,27 @@ public class RewardUtil {
             }
             //Coin
             for (CoinInfo coinInfo : coinInfos) {
+                boolean with_amount = configuration.getBoolean("with_amount");
                 if (bind_user) {
                     if (coinInfo.getOwner().mid != bind_id) continue;
                     if (DataUtil.hasCoinVideo(String.valueOf(coinInfo.aid), jsonObject)) continue;
-                    cmd(configuration.getStringList("coin"), Bukkit.getOfflinePlayer(uuid).getName(), coinInfo.title, String.valueOf(coinInfo.coins));
+                    if (with_amount){
+                        for (int i = 0;i<coinInfo.coins;i++){
+                            cmd(configuration.getStringList("coin"), Bukkit.getOfflinePlayer(uuid).getName(), coinInfo.title, String.valueOf(coinInfo.coins));
+                        }
+                    } else {
+                        cmd(configuration.getStringList("coin"), Bukkit.getOfflinePlayer(uuid).getName(), coinInfo.title, String.valueOf(coinInfo.coins));
+                    }
                 } else {
-                    if (coinInfo.aid != bind_id) continue;
+                    if (!videos.contains(coinInfo.aid)) continue;
                     if (DataUtil.hasCoinVideo(String.valueOf(coinInfo.aid), jsonObject)) continue;
-                    cmd(configuration.getStringList("coin"), Bukkit.getOfflinePlayer(uuid).getName(), coinInfo.title, String.valueOf(coinInfo.coins));
+                    if (with_amount){
+                        for (int i = 0;i<coinInfo.coins;i++){
+                            cmd(configuration.getStringList("coin"), Bukkit.getOfflinePlayer(uuid).getName(), coinInfo.title, String.valueOf(coinInfo.coins));
+                        }
+                    } else {
+                        cmd(configuration.getStringList("coin"), Bukkit.getOfflinePlayer(uuid).getName(), coinInfo.title, String.valueOf(coinInfo.coins));
+                    }
                 }
                 jsonObject = DataUtil.addCoinVideo(String.valueOf(coinInfo.aid), jsonObject);
             }
@@ -66,7 +80,7 @@ public class RewardUtil {
                         if (DataUtil.hasFolderVideo(String.valueOf(media.id), jsonObject)) continue;
                         cmd(configuration.getStringList("folder"), Bukkit.getOfflinePlayer(uuid).getName(), media.title);
                     } else {
-                        if (media.id != bind_id) continue;
+                        if (!videos.contains(media.id)) continue;
                         if (DataUtil.hasFolderVideo(String.valueOf(media.id), jsonObject)) continue;
                         cmd(configuration.getStringList("folder"), Bukkit.getOfflinePlayer(uuid).getName(), media.title);
                     }
@@ -74,13 +88,11 @@ public class RewardUtil {
                 }
             }
             //Following
-            if (bind_user) {
-                if (DataUtil.hasFollowing(jsonObject)) {
-                    for (Following following : followings) {
-                        if (following.mid != bind_id) continue;
-                        cmd(configuration.getStringList("following"), Bukkit.getOfflinePlayer(uuid).getName());
-                        jsonObject = DataUtil.setFollowing(jsonObject, true);
-                    }
+            if (DataUtil.hasFollowing(jsonObject)) {
+                for (Following following : followings) {
+                    if (following.mid != bind_id) continue;
+                    cmd(configuration.getStringList("following"), Bukkit.getOfflinePlayer(uuid).getName());
+                    jsonObject = DataUtil.setFollowing(jsonObject, true);
                 }
             }
             if (MySQL.ENABLED) {
