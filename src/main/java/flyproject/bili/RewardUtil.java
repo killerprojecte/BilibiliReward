@@ -126,4 +126,19 @@ public class RewardUtil {
             }
         });
     }
+
+    public static boolean hasBinded(String uid){
+        Map<UUID,String> map;
+        if (MySQL.ENABLED) {
+            map = MySQL.getAll();
+        } else {
+            map = YAML.getAll();
+        }
+        for (UUID uuid : map.keySet()){
+            JsonObject jsonObject = new JsonParser().parse(map.get(uuid)).getAsJsonObject();
+            String ruid = DataUtil.getUID(jsonObject);
+            if (uid.equals(ruid)) return true;
+        }
+        return false;
+    }
 }

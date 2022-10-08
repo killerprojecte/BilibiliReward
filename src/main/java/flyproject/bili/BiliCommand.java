@@ -58,6 +58,10 @@ public class BiliCommand implements CommandExecutor {
                         player.sendMessage(color("&c&l您的账号已绑定了B站用户 请勿重复绑定!"));
                         return false;
                     } else {
+                        if (RewardUtil.hasBinded(uid)){
+                            player.sendMessage(color("&c&l该UID已绑定过其它玩家"));
+                            return false;
+                        }
                         MySQL.savePlayer(new Gson().toJson(DataUtil.initJson(uid)), player.getUniqueId().toString());
                         player.sendMessage(color("&a&lB站账号绑定成功!"));
                         return true;
@@ -67,6 +71,10 @@ public class BiliCommand implements CommandExecutor {
                         player.sendMessage(color("&c&l您的账号已绑定了B站用户 请勿重复绑定!"));
                         return false;
                     } else {
+                        if (RewardUtil.hasBinded(uid)){
+                            player.sendMessage(color("&c&l该UID已绑定过其它玩家"));
+                            return false;
+                        }
                         YAML.setData(player.getUniqueId(), new Gson().toJson(DataUtil.initJson(uid)));
                         player.sendMessage(color("&a&lB站账号绑定成功!"));
                         return true;
